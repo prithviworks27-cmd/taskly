@@ -5,10 +5,28 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "test": "node test.js"
+    "test": "node test.js",
+    "dist": "electron-builder --mac"
   },
   "license": "MIT",
   "devDependencies": {
-    "electron": "^33.0.0"
+    "electron": "^33.0.0",
+    "electron-builder": "^26.18.0"
+  },
+  "build": {
+    "appId": "com.taskly.app",
+    "productName": "Taskly",
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    }
   }
 }
