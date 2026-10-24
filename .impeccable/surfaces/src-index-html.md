@@ -13,7 +13,7 @@ Mode: Operate. Single surface: sidebar of lists + task manifest. Visitor is one 
 
 THESIS: Taskly is a printed dispatch waybill, not a card list. Every list is a manifest, every task a numbered ruled line. The soft rounded to-do look is refused.
 
-OWN-WORLD: Ink black on cold white (#f4f5f5 / #0c0c0c), one stamp vermilion (#d42a12) used only for overdue and destructive hover; dark theme is the same form inverted with a brighter stamp. System monospace at 13px for everything except the 56px list title; rank by case, weight, reversal and rule. 3px structural rules, 1px line rules, square 3px-bordered checkboxes, no radius, no motion, hover inverts a row instantly.
+OWN-WORLD: Ink black on cold white (#f4f5f5 / #0c0c0c), one stamp vermilion (#d42a12) for overdue (a double-ruled stamp), destructive hover, and the focus ring, caret and selection; dark theme is the same form inverted with a brighter stamp. System monospace at 13px for everything except the 56px list title; rank by case, weight, reversal and rule. 3px structural rules, 1px line rules, square 3px-bordered checkboxes, no radius, no motion, hover inverts a row instantly.
 
 STORY: See what is open and what is overdue at a glance; add a task in one keystroke (N); finish it with one click.
 

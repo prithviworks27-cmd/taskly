@@ -29,7 +29,7 @@ function render() {
 
   $('lists').replaceChildren(...state.lists.map((l) => {
     const open = l.tasks.filter((t) => !t.done).length;
-    const btn = el('button', {}, el('span', { textContent: l.name }), el('span', { className: 'count', textContent: open || '' }));
+    const btn = el('button', {}, el('span', { textContent: l.name }), el('span', { className: 'count', textContent: open }));
     btn.setAttribute('aria-current', l.id === state.activeId);
     btn.onclick = () => { state.activeId = l.id; save(); render(); };
     return btn;
@@ -39,7 +39,7 @@ function render() {
   const pending = list.tasks.filter((t) => !t.done);
   const done = list.tasks.filter((t) => t.done);
   const overdue = pending.filter((t) => isOverdue(t, today())).length;
-  $('summary').replaceChildren(`${pending.length} open`, ...(overdue ? [el('span', { className: 'overdue-count', textContent: `${overdue} overdue` })] : []));
+  $('summary').replaceChildren(`${pending.length} open`, ...(overdue ? [el('span', { className: 'overdue-count', textContent: `${overdue} overdue` })] : []), el('span', { className: 'today', textContent: `Today ${today()}` }));
   $('tasks').replaceChildren(...(pending.length ? pending.map((t) => taskRow(list, t)) : [el('li', { className: 'empty', textContent: 'Nothing open.' })]));
   $('completed').replaceChildren(...done.map((t) => taskRow(list, t)));
   $('completed-wrap').hidden = !done.length;
@@ -86,6 +86,13 @@ $('list-title').onclick = () => {
   $('list-title').replaceChildren(input);
   input.focus();
   input.select();
+};
+
+$('list-title').onkeydown = (e) => {
+  if (e.target === e.currentTarget && (e.key === 'Enter' || e.key === ' ')) {
+    e.preventDefault();
+    e.currentTarget.click();
+  }
 };
 
 document.addEventListener('keydown', (e) => {

@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-25T00:00:00Z",
+  "title": "Design System: Taskly",
+  "extensions": {
+    "colorMeta": {
+      "paper": { "role": "neutral", "displayName": "Cold Paper", "canonical": "#f4f5f5", "tonalRamp": ["#0c0c0c", "#2a2c2d", "#484b4c", "#6a6e70", "#8d9193", "#b0b3b5", "#d3d5d6", "#f4f5f5"] },
+      "ink": { "role": "neutral", "displayName": "Waybill Ink", "canonical": "#0c0c0c", "tonalRamp": ["#0c0c0c", "#1f2021", "#323435", "#4a4d4e", "#686b6d", "#8a8d8f", "#b3b5b6", "#dcdddd"] },
+      "dim": { "role": "neutral", "displayName": "Dim Graphite", "canonical": "#55595b", "tonalRamp": ["#1d1f20", "#2c2f30", "#3d4042", "#55595b", "#6f7476", "#8b9092", "#aaaeb0", "#cacccd"] },
+      "stamp": { "role": "primary", "displayName": "Stamp Vermilion", "canonical": "#d42a12", "tonalRamp": ["#3f0f08", "#6a1a0d", "#951f0f", "#d42a12", "#e5503a", "#ee7a68", "#f5a69a", "#fad2cb"] },
+      "on-stamp": { "role": "neutral", "displayName": "On-Stamp", "canonical": "#ffffff", "tonalRamp": ["#0c0c0c", "#2e2e2e", "#505050", "#767676", "#9c9c9c", "#c0c0c0", "#e0e0e0", "#ffffff"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "List title only; 800 weight, uppercase, tight tracking." },
+      "body": { "displayName": "Body", "purpose": "Everything else at 13px; rank by case, weight, reversal and rule." },
+      "label": { "displayName": "Label", "purpose": "Command text such as the ADD plate." },
+      "wordmark": { "displayName": "Wordmark", "purpose": "Sidebar wordmark plate." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "none", "value": "transition: none; animation: none", "purpose": "All state changes are instant cuts; disabled globally." }
+    ],
+    "breakpoints": [
+      { "name": "narrow", "value": "760px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Wordmark Plate",
+      "kind": "custom",
+      "refersTo": "wordmark-plate",
+      "description": "Reversed ink plate carrying the app name atop the sidebar.",
+      "html": "<h1 class=\"ds-wordmark\">Taskly</h1>",
+      "css": ".ds-wordmark { margin: 0; padding: 18px 16px; background: var(--ink, #0c0c0c); color: var(--paper, #f4f5f5); font: 700 13px/1.4 ui-monospace, 'SF Mono', Menlo, Consolas, monospace; letter-spacing: 0.2em; text-transform: uppercase; border-radius: 0; }"
+    },
+    {
+      "name": "Add Plate",
+      "kind": "button",
+      "refersTo": "add-plate",
+      "description": "Primary command: black plate that inverts with an inset ring on hover.",
+      "html": "<button class=\"ds-add\">Add</button>",
+      "css": ".ds-add { padding: 18px 28px; border: 0; border-radius: 0; background: var(--ink, #0c0c0c); color: var(--paper, #f4f5f5); font: 700 13px/1.4 ui-monospace, 'SF Mono', Menlo, Consolas, monospace; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; } .ds-add:hover { background: var(--paper, #f4f5f5); color: var(--ink, #0c0c0c); outline: 3px solid var(--ink, #0c0c0c); outline-offset: -6px; } .ds-add:focus-visible { outline: 3px solid var(--stamp, #d42a12); outline-offset: -3px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "ghost-button",
+      "description": "Hairline-bordered secondary command; destructive hover fills with the stamp.",
+      "html": "<button class=\"ds-ghost\">Delete list</button>",
+      "css": ".ds-ghost { padding: 8px 12px; border: 1px solid var(--ink, #0c0c0c); border-radius: 0; background: none; color: inherit; font: 13px/1.4 ui-monospace, 'SF Mono', Menlo, Consolas, monospace; text-transform: uppercase; cursor: pointer; } .ds-ghost:hover { background: var(--stamp, #d42a12); border-color: var(--stamp, #d42a12); color: var(--on-stamp, #fff); } .ds-ghost:focus-visible { outline: 3px solid var(--stamp, #d42a12); outline-offset: -3px; }"
+    },
+    {
+      "name": "List Index Item",
+      "kind": "nav",
+      "refersTo": "list-index-item",
+      "description": "Sidebar list row with count at right; hover and current are reversed plates.",
+      "html": "<button class=\"ds-list\"><span>Inbox</span><span>04</span></button><button class=\"ds-list\" aria-current=\"true\"><span>Work</span><span>12</span></button>",
+      "css": ".ds-list { display: flex; justify-content: space-between; width: 100%; padding: 11px 16px; border: 0; border-bottom: 1px solid var(--ink, #0c0c0c); border-radius: 0; background: none; color: inherit; font: 13px/1.4 ui-monospace, 'SF Mono', Menlo, Consolas, monospace; text-align: left; text-transform: uppercase; cursor: pointer; } .ds-list:hover, .ds-list[aria-current='true'] { background: var(--ink, #0c0c0c); color: var(--paper, #f4f5f5); } .ds-list[aria-current='true'] { font-weight: 700; } .ds-list:focus-visible { outline: 3px solid var(--stamp, #d42a12); outline-offset: -3px; }"
+    },
+    {
+      "name": "Task Line",
+      "kind": "card",
+      "refersTo": "task-line",
+      "description": "Numbered ruled line with square checkbox and due date; row inverts on hover.",
+      "html": "<div class=\"ds-task\"><span class=\"ds-num\">01</span><input type=\"checkbox\" class=\"ds-check\" aria-label=\"Done\"><span class=\"ds-title\">File customs form</span><span class=\"ds-due\">Oct 30</span></div>",
+      "css": ".ds-task { display: grid; grid-template-columns: 64px 36px minmax(0,1fr) auto; align-items: center; min-height: 54px; border-bottom: 1px solid var(--ink, #0c0c0c); font: 13px/1.4 ui-monospace, 'SF Mono', Menlo, Consolas, monospace; color: var(--ink, #0c0c0c); background: var(--paper, #f4f5f5); } .ds-task:hover { background: var(--ink, #0c0c0c); color: var(--paper, #f4f5f5); } .ds-num { padding-left: 32px; color: var(--dim, #55595b); } .ds-task:hover .ds-num, .ds-task:hover .ds-due { color: inherit; } .ds-check { appearance: none; width: 20px; height: 20px; margin: 0; border: 3px solid currentColor; border-radius: 0; background: transparent; cursor: pointer; } .ds-check:checked { background: currentColor; } .ds-check:focus-visible { outline: 3px solid var(--stamp, #d42a12); outline-offset: 2px; } .ds-title { padding: 14px 16px 14px 8px; } .ds-due { padding: 0 16px; color: var(--dim, #55595b); text-transform: uppercase; }"
+    },
+    {
+      "name": "Overdue Stamp",
+      "kind": "chip",
+      "refersTo": "overdue-stamp",
+      "description": "Double-ruled vermilion plate replacing the due date on overdue tasks.",
+      "html": "<span class=\"ds-stamp\">Overdue</span>",
+      "css": ".ds-stamp { display: inline-block; margin: 4px; padding: 4px 10px; outline: 2px solid var(--stamp, #d42a12); outline-offset: 2px; border-radius: 0; background: var(--stamp, #d42a12); color: var(--on-stamp, #fff); font: 700 13px/1.4 ui-monospace, 'SF Mono', Menlo, Consolas, monospace; text-transform: uppercase; }"
+    },
+    {
+      "name": "Add Row Input",
+      "kind": "input",
+      "refersTo": "task-line",
+      "description": "Borderless full-width field; the row rule is its edge, focus is a vermilion inset ring.",
+      "html": "<input class=\"ds-input\" placeholder=\"Add a task (press N)\" aria-label=\"New task\">",
+      "css": ".ds-input { width: 100%; padding: 18px 32px; border: 0; border-bottom: 3px solid var(--ink, #0c0c0c); border-radius: 0; background: transparent; color: inherit; caret-color: var(--stamp, #d42a12); font: 13px/1.4 ui-monospace, 'SF Mono', Menlo, Consolas, monospace; } .ds-input::placeholder { color: var(--dim, #55595b); opacity: 1; text-transform: uppercase; } .ds-input:focus-visible { outline: 3px solid var(--stamp, #d42a12); outline-offset: -3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Dispatch Waybill",
+    "overview": "Taskly reads as a printed waybill, not a card list. A list is a manifest; a task is a numbered, ruled line. Everything is one monospace size (13px) except the list title (up to 56px); hierarchy comes from case, weight, reversal and rule, never from size steps, tint or elevation. The soft rounded to-do look is the confirmed rejection.\n\nThe surface is two-tone ink on paper with one vermilion stamp color. Hover inverts a row instantly. There is no radius and no motion; state changes are cuts, not transitions. Density is ledger-tight: 54px task lines separated by 1px rules, heavier 3px rules for structure.",
+    "keyCharacteristics": [
+      "One type size plus one oversized title; rank by case, weight, reversal, rule.",
+      "Ink-and-paper only, with a single vermilion stamp accent.",
+      "3px structural rules, 1px line rules, square corners everywhere.",
+      "Reversal (ink plate with paper text) marks identity, selection and hover.",
+      "Light and dark are the same form inverted, with a brighter stamp in dark."
+    ],
+    "rules": [
+      { "name": "The One Stamp Rule", "body": "Vermilion marks only urgency and interaction: overdue, destructive hover, focus, caret, selection. It never decorates.", "section": "colors" },
+      { "name": "The Inversion Rule", "body": "Emphasis is reversal (swap paper and ink), not a new color.", "section": "colors" },
+      { "name": "The One Size Rule", "body": "Apart from the list title, nothing exceeds 13px. Rank with case, weight, reversal and rule.", "section": "typography" },
+      { "name": "The Flat Rule", "body": "Separate with a rule or a reversal, never a shadow.", "section": "elevation" },
+      { "name": "The Cut Rule", "body": "State changes are instant. Nothing eases, fades or slides.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do rank with case, weight, reversal and rule at 13px; reserve the 56px size for the list title.",
+      "Do use 3px rules for structure and 1px rules between lines.",
+      "Do express hover and selection as full reversal (ink fill, paper text).",
+      "Do keep vermilion to overdue, destructive hover, focus, caret and selection, and always pair it with the matching on-stamp text color.",
+      "Do redefine only the five custom properties for the dark theme."
+    ],
+    "donts": [
+      "Don't use border radius, shadows, gradients or blurs.",
+      "Don't add transitions or animation; state changes are cuts.",
+      "Don't introduce a second accent color or tinted greys for emphasis.",
+      "Don't add intermediate font sizes to create hierarchy.",
+      "Don't return to rounded cards or soft to-do styling."
+    ]
+  }
+}
