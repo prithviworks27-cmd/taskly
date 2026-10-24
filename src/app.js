@@ -19,7 +19,7 @@ function taskRow(list, task) {
     const over = isOverdue(task, today());
     body.append(el('div', { className: 'due' + (over ? ' overdue' : ''), textContent: (over ? 'Overdue: ' : 'Due: ') + task.due }));
   }
-  const del = el('button', { className: 'ghost del', textContent: '✕', ariaLabel: `Delete ${task.title}` });
+  const del = el('button', { className: 'ghost del', ariaLabel: `Delete ${task.title}`, title: 'Delete task' });
   del.onclick = () => { list.tasks = list.tasks.filter((t) => t.id !== task.id); save(); render(); };
   return el('li', { className: 'task' + (task.done ? ' done' : '') }, check, body, del);
 }
@@ -38,7 +38,9 @@ function render() {
   $('list-title').textContent = list.name;
   const pending = list.tasks.filter((t) => !t.done);
   const done = list.tasks.filter((t) => t.done);
-  $('tasks').replaceChildren(...pending.map((t) => taskRow(list, t)));
+  const overdue = pending.filter((t) => isOverdue(t, today())).length;
+  $('summary').replaceChildren(`${pending.length} open`, ...(overdue ? [el('span', { className: 'overdue-count', textContent: `${overdue} overdue` })] : []));
+  $('tasks').replaceChildren(...(pending.length ? pending.map((t) => taskRow(list, t)) : [el('li', { className: 'empty', textContent: 'Nothing open.' })]));
   $('completed').replaceChildren(...done.map((t) => taskRow(list, t)));
   $('completed-wrap').hidden = !done.length;
   $('completed-count').textContent = `(${done.length})`;
@@ -85,6 +87,14 @@ $('list-title').onclick = () => {
   input.focus();
   input.select();
 };
+
+document.addEventListener('keydown', (e) => {
+  const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName);
+  if (e.key.toLowerCase() === 'n' && !typing && !e.metaKey && !e.ctrlKey && !e.altKey) {
+    e.preventDefault();
+    document.querySelector('#new-task [name=title]').focus();
+  }
+});
 
 window.store.load().then((saved) => {
   state = saved && saved.lists && saved.lists.length ? saved : defaultState();

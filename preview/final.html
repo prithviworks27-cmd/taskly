@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Taskly</title>
+  <link rel="stylesheet" href="../src/style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <h1>Taskly</h1>
+    <nav id="lists" aria-label="Lists"></nav>
+    <form id="new-list" class="add-row">
+      <input name="name" placeholder="+ New list" aria-label="New list name" autocomplete="off">
+    </form>
+  </aside>
+  <main>
+    <header>
+      <div>
+        <h2 id="list-title" tabindex="0" title="Click to rename"></h2>
+        <p id="summary"></p>
+      </div>
+      <button id="delete-list" class="ghost" aria-label="Delete list">Delete list</button>
+    </header>
+    <form id="new-task" class="add-row task-form">
+      <input name="title" placeholder="Add a task (press N)" aria-label="New task title" autocomplete="off" required>
+      <input name="due" type="date" aria-label="Due date">
+      <button type="submit">Add</button>
+    </form>
+    <ul id="tasks"></ul>
+    <details id="completed-wrap">
+      <summary>Completed <span id="completed-count"></span></summary>
+      <ul id="completed"></ul>
+    </details>
+  </main>
+  <script src="../src/model.js"></script>
+  <script src="shim.js"></script><script src="../src/app.js"></script>
+</body>
+</html>
