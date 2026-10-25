@@ -24,14 +24,18 @@ function taskRow(list, task) {
   return el('li', { className: 'task' + (task.done ? ' done' : '') }, check, body, del);
 }
 
+let enterNext = true; // stagger rows in only on first load and list switch, not on every toggle
+
 function render() {
   const list = active();
+  document.querySelector('main').dataset.enter = enterNext ? '1' : '';
+  enterNext = false;
 
   $('lists').replaceChildren(...state.lists.map((l) => {
     const open = l.tasks.filter((t) => !t.done).length;
     const btn = el('button', {}, el('span', { textContent: l.name }), el('span', { className: 'count', textContent: open }));
     btn.setAttribute('aria-current', l.id === state.activeId);
-    btn.onclick = () => { state.activeId = l.id; save(); render(); };
+    btn.onclick = () => { state.activeId = l.id; enterNext = true; save(); render(); };
     return btn;
   }));
 
@@ -42,6 +46,7 @@ function render() {
   $('summary').replaceChildren(`${pending.length} open`, ...(overdue ? [el('span', { className: 'overdue-count', textContent: `${overdue} overdue` })] : []), el('span', { className: 'today', textContent: `Today ${today()}` }));
   $('tasks').replaceChildren(...(pending.length ? pending.map((t) => taskRow(list, t)) : [el('li', { className: 'empty', textContent: 'Nothing open.' })]));
   $('completed').replaceChildren(...done.map((t) => taskRow(list, t)));
+  [...$('tasks').children].forEach((li, i) => li.style.setProperty('--i', i));
   $('completed-wrap').hidden = !done.length;
   $('completed-count').textContent = `(${done.length})`;
 }
